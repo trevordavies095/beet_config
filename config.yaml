@@ -1,0 +1,18 @@
+directory: /Volumes/Backup/Music/
+library: /Volumes/Backup/Music/musiclibrary.db
+
+plugins: fetchart
+fetchart:
+    cautious: true
+    cover_names: front back
+    sources: itunes *
+
+threaded: yes
+
+
+# Display the bitdepth and sample rate if the file is flac
+paths:                       # Directory and naming scheme.
+  default: %if{$albumartist_sort, $albumartist_sort, $albumartist}/%if{$year,[$year] $album,$album} ($format%if{$bitdepth, $bitdepth-$samplerate})/$track $title
+  singleton: %if{$albumartist_sort, $albumartist_sort, $albumartist}/Non-Album/$title
+  albumtype:soundtrack: Soundtracks/%if{$year,[$year] $album,$album} ($format%if{$bitdepth, $bitdepth-$samplerate})/$track $title
+  comp: Compilations/%if{$year,[$year] $album,$album} ($format%if{$bitdepth, $bitdepth-$samplerate})/$track $title
