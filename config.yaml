@@ -1,13 +1,17 @@
 directory: /Volumes/Backup/Music/
 library: /Volumes/Backup/Music/musiclibrary.db
 
-plugins: fetchart
+plugins: fetchart missing lastgenre mbsync bpmanalyser acousticbrainz
 fetchart:
     cautious: true
     cover_names: front back
     sources: itunes *
 
-threaded: yes
+threaded: yesåç
+
+
+match:
+    strong_rec_thresh: 0.30
 
 
 # Display the bitdepth and sample rate if the file is flac
