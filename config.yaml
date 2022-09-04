@@ -1,13 +1,34 @@
 directory: /Volumes/Backup/Music/
 library: /Volumes/Backup/Music/musiclibrary.db
 
-plugins: fetchart missing lastgenre mbsync bpmanalyser acousticbrainz
+plugins: fetchart missing lastgenre mbsync describe smartplaylist badfiles lyrics yearfixer lastgenre embedart
 fetchart:
     cautious: true
-    cover_names: front back
-    sources: itunes *
+    sources: itunes wikipedia google lastfm
+    minwidth: 1200
+    google_key: AIzaSyDAElNkicEBh8AwmtSJ7LJKquIQTRPtBSA
+    lastfm_key: f167c8ab1ded89d6bce3f8be851efa53
 
-threaded: yesåç
+
+smartplaylist:
+    playlist_dir: /Volumes/Backup/Music/Generated_Playlists
+    playlists:
+        - name: 160-169BPM.m3u
+          query: ['bpm:160..169']
+        - name: 170-174BPM.m3u
+          query: ['bpm:170..174']
+        - name: 170-175BPM.m3u
+          query: ['bpm:175..179']
+
+badfiles:
+    check_on_import: yes
+    commands:
+        ogg: myoggchecker --opt1 --opt2
+        flac: flac --test --warnings-as-errors --silent
+        mp3: mp3val
+    
+
+threaded: yes
 
 
 match:
@@ -20,3 +41,4 @@ paths:                       # Directory and naming scheme.
   singleton: %if{$albumartist_sort, $albumartist_sort, $albumartist}/Non-Album/$title
   albumtype:soundtrack: Soundtracks/%if{$year,[$year] $album,$album} ($format%if{$bitdepth, $bitdepth-$samplerate})/$track $title
   comp: Compilations/%if{$year,[$year] $album,$album} ($format%if{$bitdepth, $bitdepth-$samplerate})/$track $title
+
